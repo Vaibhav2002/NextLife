@@ -1,0 +1,27 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<resources>
+    <color name="primaryColor">#31326f</color>
+    <color name="primaryLightColor">#5f5b9e</color>
+    <color name="primaryDarkColor">#000d43</color>
+    <color name="secondaryColor">#ffc93c</color>
+    <color name="secondaryLightColor">#fffc70</color>
+    <color name="secondaryDarkColor">#c89900</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+
+
+    <color name="blue">#9ddfd3</color>
+    <color name="lightblue">#d8f6e9</color>
+    <color name="deep_blue">#040d33</color>
+
+    <color name="black">#000000</color>
+
+    <color name="white">#ffffff</color>
+    <color name="darkgray">#d9d9de</color>
+    <color name="lightgray">#f0f0f0</color>
+    <color name="bluegray">#eff7ff</color>
+    <color name="bluegray_light">#f8fcff</color>
+
+    <color name="authtextfieldbg">#d9d9de</color>
+
+</resources>
