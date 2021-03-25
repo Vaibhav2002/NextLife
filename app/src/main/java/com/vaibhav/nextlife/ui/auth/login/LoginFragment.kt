@@ -65,15 +65,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        if (loginViewModel.isLoggedIn()) {
-            requireActivity().startActivity(Intent(requireContext(), HomeActivity::class.java))
-            requireActivity().finish()
-        }
-    }
-
     private fun showToast(title: String, message: String, isError: Boolean) {
         requireActivity().apply {
             if (!isError)

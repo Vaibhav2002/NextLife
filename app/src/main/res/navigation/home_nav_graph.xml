@@ -5,19 +5,36 @@
     android:id="@+id/home_nav_graph"
     app:startDestination="@id/feedFragment">
 
+
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.vaibhav.nextlife.ui.auth.login.LoginFragment"
+        android:name="com.vaibhav.nextlife.ui.homeScreen.feedScreen.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed">
+        <action
+            android:id="@+id/action_feedFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_requirementDetailFragment"
+            app:destination="@id/requirementDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.vaibhav.nextlife.ui.homeScreen.postSreen.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.vaibhav.nextlife.ui.homeScreen.profileScreen.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/postFragment"
-        android:name="com.vaibhav.nextlife.ui.homeScreen.postSreen.PostFragment"
-        android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        android:id="@+id/requirementDetailFragment"
+        android:name="com.vaibhav.nextlife.ui.homeScreen.requirementDetail.RequirementDetailFragment"
+        android:label="fragment_requirement_detail"
+        tools:layout="@layout/fragment_requirement_detail">
+        <argument
+            android:name="post"
+            app:argType="com.vaibhav.nextlife.data.models.PostModel" />
+    </fragment>
 </navigation>

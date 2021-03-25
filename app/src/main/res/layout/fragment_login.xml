@@ -42,7 +42,6 @@
             android:drawablePadding="16dp"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:maxLength="10"
             android:maxLines="1"
             android:padding="16dp" />
 

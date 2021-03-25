@@ -11,11 +11,11 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.vaibhav.nextlife.data.models.LocationModel
-import com.vaibhav.nextlife.utils.LocationResource
+import com.vaibhav.nextlife.utils.Resource
 import java.util.*
 
 
-class LocationLiveData(private val context: Context) : LiveData<LocationResource<LocationModel>>() {
+class LocationLiveData(private val context: Context) : LiveData<Resource<LocationModel>>() {
 
     private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
@@ -25,11 +25,11 @@ class LocationLiveData(private val context: Context) : LiveData<LocationResource
     }
 
     fun postLoading() {
-        value = LocationResource.Loading()
+        value = Resource.Loading()
     }
 
     fun postError() {
-        value = LocationResource.Error("Error fetching location", data = null)
+        value = Resource.Error("Error fetching location", data = null)
     }
 
     override fun onActive() {
@@ -88,7 +88,7 @@ class LocationLiveData(private val context: Context) : LiveData<LocationResource
         val postalCode: String = addresses[0].postalCode ?: ""
         val knownName: String = addresses[0].featureName ?: ""// Only if available else return NULL
 
-        value = LocationResource.Success(
+        value = Resource.Success(
             LocationModel(
                 long = location.longitude,
                 lat = location.latitude,

@@ -1,60 +1,86 @@
 package com.vaibhav.nextlife.ui.homeScreen.feedScreen
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.vaibhav.nextlife.R
+import com.vaibhav.nextlife.databinding.FragmentFeedBinding
+import com.vaibhav.nextlife.ui.homeScreen.HomeViewModel
+import com.vaibhav.nextlife.utils.Constants
+import com.vaibhav.nextlife.utils.Resource
+import com.vaibhav.nextlife.utils.adapters.BloodGroupAdapter
+import com.vaibhav.nextlife.utils.adapters.RequirementsAdapter
+import com.vaibhav.nextlife.utils.showErrorToastLight
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class FeedFragment : Fragment(R.layout.fragment_feed) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FeedFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FeedFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentFeedBinding
+    private val sharedViewModel: HomeViewModel by activityViewModels()
+    private lateinit var bloodGroupAdapter: BloodGroupAdapter
+    private lateinit var requirementsAdapter: RequirementsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentFeedBinding.bind(view)
+        bloodGroupAdapter = BloodGroupAdapter(requireContext(), onCLickListener = {
+            sharedViewModel.setBloodType(it.text.replace(" ", ""))
+            Timber.d(it.text.replace(" ", ""))
+            sharedViewModel.fetchAllRequirements(it.text.replace(" ", ""))
+        })
+        requirementsAdapter = RequirementsAdapter {
+            val action = FeedFragmentDirections.actionFeedFragmentToRequirementDetailFragment(it)
+            findNavController().navigate(action)
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feed, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FeedFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FeedFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        binding.addFab.setOnClickListener {
+            findNavController().navigate(R.id.action_feedFragment_to_postFragment)
+        }
+        binding.refresh.setOnRefreshListener {
+            binding.refresh.isRefreshing = true
+            val type = bloodGroupAdapter.getPressedBloodGroup()
+            type?.let {
+                sharedViewModel.fetchAllRequirements(it.text.replace(" ", ""))
+            } ?: sharedViewModel.fetchAllRequirements("")
+            binding.refresh.isRefreshing = false
+        }
+        sharedViewModel.allRequests.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Loading -> binding.loadingAnim.isVisible = true
+                is Resource.Success -> {
+                    Timber.d(it.data.toString())
+                    binding.loadingAnim.isVisible = false
+                    requirementsAdapter.submitList(it.data)
+                    if (it.data.isNullOrEmpty())
+                        Toast.makeText(
+                            requireContext(),
+                            "No requirements found",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                }
+                is Resource.Error -> {
+                    binding.loadingAnim.isVisible = false
+                    requireActivity().showErrorToastLight(
+                        "Error loading requirements",
+                        it.message ?: "Oops something went wrong"
+                    )
                 }
             }
+        })
+        binding.bloodGroupRecycle.apply {
+            adapter = bloodGroupAdapter
+            setHasFixedSize(true)
+        }
+        binding.requirementsRecycle.apply {
+            adapter = requirementsAdapter
+            setHasFixedSize(false)
+        }
+        bloodGroupAdapter.submitList(Constants.bloodGroups)
     }
+
 }

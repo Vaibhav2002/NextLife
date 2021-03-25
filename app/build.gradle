@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'com.google.secrets_gradle_plugin' version '0.5'
 
 }
 
@@ -52,6 +53,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:22.1.1'
     implementation 'com.google.firebase:firebase-storage-ktx:19.2.1'
     implementation 'com.google.firebase:firebase-auth-ktx:20.0.3'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -60,7 +62,7 @@ dependencies {
 
     def lifecycle_version = "2.2.0"
 
-    // Import the BoM for the Firebase platform
+
     implementation platform('com.google.firebase:firebase-bom:26.7.0')
 
     // Declare the dependency for the Firebase Authentication library

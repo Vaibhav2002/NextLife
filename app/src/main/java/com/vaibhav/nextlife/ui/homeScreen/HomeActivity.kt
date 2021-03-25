@@ -9,8 +9,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.vaibhav.nextlife.R
-import com.vaibhav.nextlife.utils.LocationResource
+import com.vaibhav.nextlife.databinding.ActivityMainBinding
+import com.vaibhav.nextlife.utils.Resource
 import com.vaibhav.nextlife.utils.location.GpsUtils
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -19,22 +22,28 @@ import timber.log.Timber
 class HomeActivity : AppCompatActivity() {
 
     private val viewModel: HomeViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
     var isGPSEnabled = false
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        navController = findNavController(R.id.fragment2)
         GpsUtils(this).turnGPSOn(object : GpsUtils.OnGpsListener {
 
             override fun gpsStatus(isGPSEnable: Boolean) {
                 this@HomeActivity.isGPSEnabled = isGPSEnable
             }
         })
-    }
-
-    override fun onStart() {
-        super.onStart()
         invokeLocationAction()
+
+        viewModel.userLocation.observe(this, {
+            if (it != null) {
+                viewModel.fetchAllRequirements("")
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -72,11 +81,11 @@ class HomeActivity : AppCompatActivity() {
     private fun startLocationUpdate() {
         viewModel.location.observe(this, {
             when (it) {
-                is LocationResource.Error -> {
+                is Resource.Error -> {
                     Timber.d("Error")
                 }
-                is LocationResource.Loading -> Timber.d("Loading")
-                is LocationResource.Success -> {
+                is Resource.Loading -> Timber.d("Loading")
+                is Resource.Success -> {
                     it.data?.let { location ->
                         Timber.d("${location.lat} ${location.long} ${location.address} ${location.city}")
                         if (viewModel.userLocation.value == null)

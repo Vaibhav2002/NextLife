@@ -5,11 +5,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.vaibhav.nextlife.R
 import com.vaibhav.nextlife.ui.auth.AuthorizationActivity
+import com.vaibhav.nextlife.ui.homeScreen.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
+    private val viewModel: SplashViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -19,8 +25,11 @@ class SplashActivity : AppCompatActivity() {
         );
         setContentView(R.layout.activity_splash)
         Handler().postDelayed({
-            startActivity(Intent(this, AuthorizationActivity::class.java))
+            if (viewModel.isLoggedIn())
+                startActivity(Intent(this, HomeActivity::class.java))
+            else
+                startActivity(Intent(this, AuthorizationActivity::class.java))
             finish()
-        }, 2000L)
+        }, 1500L)
     }
 }
