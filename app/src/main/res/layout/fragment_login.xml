@@ -26,11 +26,11 @@
             android:text="Login to continue" />
 
         <ImageView
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:layout_marginVertical="32dp"
-            android:src="@drawable/login_illus" />
+            android:src="@drawable/login" />
 
         <EditText
             android:id="@+id/email_input"
