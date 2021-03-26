@@ -44,10 +44,7 @@ Clone the repository on your machine. Open the project on your IDE and connect i
   - Firebase Firestore - A NoSQL database to store all data 
   - Firebase Storage - A clous storage to store all images
 - [Google Maps](https://developers.google.com/maps/documentation) - To render google maps in app
-- [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
-- [GSON](https://github.com/google/gson) - A modern JSON library for Kotlin and Java.
 - [Timber](https://github.com/JakeWharton/timber) - A simple logging library for android.
-- [GSON Converter](https://github.com/square/retrofit/tree/master/retrofit-converters/gson) - A Converter which uses Moshi for serialization to and from JSON.
 - [Glide](https://github.com/bumptech/glide) - An image loading library for Android backed by Kotlin Coroutines.
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
 
