@@ -19,7 +19,99 @@
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="240dp" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
+            android:textColor="?attr/colorOnBackground"
+            android:textStyle="bold"
+            tools:text="Need A+ blood immediately" />
+
+        <TextView
+            android:id="@+id/description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:maxLines="12"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
+            android:textColor="?attr/colorOnBackground"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6"
+            android:textColor="?attr/colorOnBackground"
+            tools:text="Posted by Vaibhav Jaiswal" />
+
+        <TextView
+            android:id="@+id/address_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2"
+            android:textColor="?attr/colorOnBackground"
+            tools:text="Kolkata, WestBengal" />
+
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/callfab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        app:icon="@drawable/call"
+        app:iconPadding="8dp"
+        app:iconSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="9330663085" />
+
+    <!--    <com.google.android.material.card.MaterialCardView-->
+    <!--        android:id="@+id/back_arrow"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:cardCornerRadius="20dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:background="?attr/backgroundColor">-->
+
+
+    <!--        <RelativeLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:padding="8dp"-->
+    <!--            android:layout_height="match_parent">-->
+
+    <!--            <ImageView-->
+    <!--                android:layout_width="24dp"-->
+    <!--                android:layout_height="24dp"-->
+    <!--                android:layout_centerInParent="true"-->
+    <!--                app:tint="?attr/colorOnBackground"-->
+    <!--                android:src="@drawable/ic_baseline_arrow_back_24"/>-->
+    <!--        </RelativeLayout>-->
+    <!--    </com.google.android.material.card.MaterialCardView>-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

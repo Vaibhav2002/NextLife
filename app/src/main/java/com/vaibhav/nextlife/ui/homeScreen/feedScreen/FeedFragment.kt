@@ -1,6 +1,10 @@
 package com.vaibhav.nextlife.ui.homeScreen.feedScreen
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -9,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.vaibhav.nextlife.R
 import com.vaibhav.nextlife.databinding.FragmentFeedBinding
+import com.vaibhav.nextlife.ui.auth.AuthorizationActivity
 import com.vaibhav.nextlife.ui.homeScreen.HomeViewModel
 import com.vaibhav.nextlife.utils.Constants
 import com.vaibhav.nextlife.utils.Resource
@@ -30,10 +35,16 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentFeedBinding.bind(view)
         bloodGroupAdapter = BloodGroupAdapter(requireContext(), onCLickListener = {
-            sharedViewModel.setBloodType(it.text.replace(" ", ""))
-            Timber.d(it.text.replace(" ", ""))
-            sharedViewModel.fetchAllRequirements(it.text.replace(" ", ""))
+            if (it.isChecked) {
+                sharedViewModel.setBloodType(it.text.replace(" ", ""))
+                sharedViewModel.fetchAllRequirements(it.text.replace(" ", ""))
+            } else {
+                sharedViewModel.setBloodType("")
+                sharedViewModel.fetchAllRequirements("")
+            }
+            Timber.d(it.isChecked.toString())
         })
+        setHasOptionsMenu(true)
         requirementsAdapter = RequirementsAdapter {
             val action = FeedFragmentDirections.actionFeedFragmentToRequirementDetailFragment(it)
             findNavController().navigate(action)
@@ -53,7 +64,6 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
             when (it) {
                 is Resource.Loading -> binding.loadingAnim.isVisible = true
                 is Resource.Success -> {
-                    Timber.d(it.data.toString())
                     binding.loadingAnim.isVisible = false
                     requirementsAdapter.submitList(it.data)
                     if (it.data.isNullOrEmpty())
@@ -83,4 +93,29 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
         bloodGroupAdapter.submitList(Constants.bloodGroups)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.app_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.logout -> {
+                requireActivity().startActivity(
+                    Intent(
+                        requireContext(),
+                        AuthorizationActivity::class.java
+                    )
+                )
+                requireActivity().finish()
+                return true
+            }
+            R.id.profile -> {
+                findNavController().navigate(R.id.action_feedFragment_to_profileFragment)
+                return true
+            }
+            else -> return false
+        }
+    }
 }

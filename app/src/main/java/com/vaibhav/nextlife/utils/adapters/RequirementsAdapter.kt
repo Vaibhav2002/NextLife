@@ -41,7 +41,7 @@ class RequirementsAdapter(private val onItemCLick: (PostModel) -> Unit) :
             oldItem: PostModel,
             newItem: PostModel
         ): Boolean {
-            return oldItem === newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(

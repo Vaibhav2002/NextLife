@@ -92,6 +92,7 @@ class PostRepo @Inject constructor(
     }
 
     suspend fun postRequest(
+        username: String,
         title: String,
         description: String,
         phoneNumber: String,
@@ -110,6 +111,7 @@ class PostRepo @Inject constructor(
             val postModel = PostModel(
                 id = "${System.currentTimeMillis()}${userId}",
                 userId = userId,
+                username,
                 title,
                 description,
                 phoneNumber,

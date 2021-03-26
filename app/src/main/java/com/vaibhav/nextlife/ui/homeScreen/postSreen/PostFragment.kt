@@ -1,6 +1,10 @@
 package com.vaibhav.nextlife.ui.homeScreen.postSreen
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -9,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.vaibhav.nextlife.R
 import com.vaibhav.nextlife.databinding.FragmentPostBinding
+import com.vaibhav.nextlife.ui.auth.AuthorizationActivity
 import com.vaibhav.nextlife.ui.homeScreen.HomeViewModel
 import com.vaibhav.nextlife.utils.Constants
 import com.vaibhav.nextlife.utils.Status
@@ -59,7 +64,7 @@ class PostFragment : Fragment(R.layout.fragment_post) {
                 }
             }
         }
-
+        setHasOptionsMenu(true)
         binding.postButton.setOnClickListener {
             val title = binding.titleInput.text.toString()
             val description = binding.descriptionInput.text.toString()
@@ -90,5 +95,31 @@ class PostFragment : Fragment(R.layout.fragment_post) {
         Timber.d(mobileError.toString())
         Timber.d((bloodGroup != "").toString())
         return !titleError && !descriptionError && !mobileError && bloodGroup != ""
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.app_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.logout -> {
+                requireActivity().startActivity(
+                    Intent(
+                        requireContext(),
+                        AuthorizationActivity::class.java
+                    )
+                )
+                requireActivity().finish()
+                return true
+            }
+            R.id.profile -> {
+                findNavController().navigate(R.id.action_postFragment_to_profileFragment)
+                return true
+            }
+            else -> return false
+        }
     }
 }

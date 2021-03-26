@@ -5,6 +5,7 @@ import java.io.Serializable
 data class PostModel(
     val id: String = "",
     val userId: String = "",
+    val username: String = "",
     val title: String = "",
     val description: String = "",
     val phoneNumber: String = "",

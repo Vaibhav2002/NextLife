@@ -68,6 +68,22 @@ class AuthRepo @Inject constructor(
         }
     }
 
+    suspend fun getUserDetails(
+        userId: String,
+        successListener: (User) -> Unit,
+        failureListener: (Exception) -> Unit
+    ) {
+        withContext(Dispatchers.IO) {
+            fireStore.collection("users").document(userId).get()
+                .addOnSuccessListener {
+                    val user = it.toObject(User::class.java)
+                    user?.let { successListener(user) }
+                        ?: failureListener(Exception("User not found"))
+                }
+                .addOnFailureListener { failureListener.invoke(it) }
+        }
+    }
+
 
     private fun addUserToFireStore(
         user: User,

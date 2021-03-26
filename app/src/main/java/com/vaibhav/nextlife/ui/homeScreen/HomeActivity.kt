@@ -15,6 +15,7 @@ import com.vaibhav.nextlife.R
 import com.vaibhav.nextlife.databinding.ActivityMainBinding
 import com.vaibhav.nextlife.utils.Resource
 import com.vaibhav.nextlife.utils.location.GpsUtils
+import com.vaibhav.nextlife.utils.showErrorToastLight
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -38,7 +39,13 @@ class HomeActivity : AppCompatActivity() {
             }
         })
         invokeLocationAction()
-
+        setSupportActionBar(binding.myToolbar)
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when (destination.id) {
+                R.id.requirementDetailFragment -> supportActionBar?.hide()
+                else -> supportActionBar?.show()
+            }
+        }
         viewModel.userLocation.observe(this, {
             if (it != null) {
                 viewModel.fetchAllRequirements("")
@@ -51,7 +58,6 @@ class HomeActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == GPS_REQUEST) {
                 isGPSEnabled = true
-                invokeLocationAction()
             }
         }
     }
@@ -59,11 +65,14 @@ class HomeActivity : AppCompatActivity() {
     private fun invokeLocationAction() {
         if (isPermissionsGranted()) {
             when {
-                !isGPSEnabled -> Timber.d("Enable GPS")
+                !isGPSEnabled -> showErrorToastLight("Enable GPS", "Enable GPS and restart app")
 
                 isPermissionsGranted() -> startLocationUpdate()
 
-                shouldShowRequestPermissionRationale() -> Timber.d("Give permission")
+                shouldShowRequestPermissionRationale() -> showErrorToastLight(
+                    "Permissions Required",
+                    "Give permissions for app to continue"
+                )
             }
         } else {
             ActivityCompat.requestPermissions(
@@ -79,6 +88,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun startLocationUpdate() {
+        viewModel.startListeningToLocation()
         viewModel.location.observe(this, {
             when (it) {
                 is Resource.Error -> {

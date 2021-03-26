@@ -1,5 +1,6 @@
 package com.vaibhav.nextlife.di
 
+import android.content.Context
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -26,6 +27,11 @@ object AppModule {
     @Provides
     @Singleton
     fun providesStorage() = Firebase.storage
+
+    @Provides
+    @Singleton
+    fun providesPreferences(@ApplicationContext context: Context) =
+        context.getSharedPreferences("NextLife", Context.MODE_PRIVATE)
 
     @Provides
     @Singleton

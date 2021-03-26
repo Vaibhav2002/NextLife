@@ -1,4 +1,4 @@
-package com.vaibhav.nextlife.ui.splashScreen
+package com.vaibhav.nextlife.ui.onBoarding
 
 import androidx.lifecycle.ViewModel
 import com.vaibhav.nextlife.data.repo.AuthRepo
@@ -7,12 +7,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(
-    private val authRepo: AuthRepo,
-    private val preferencesRepo: PreferencesRepo
+class OnBoardingViewModel @Inject constructor(
+    private val preferencesRepo: PreferencesRepo,
+    private val authRepo: AuthRepo
 ) : ViewModel() {
 
-    fun isFirstTime() = preferencesRepo.isFirstTime()
+
+    fun setOnBoardingComplete() = preferencesRepo.setOnBoardingComplete()
 
     fun isLoggedIn() = authRepo.isLoggedIn()
+
 }

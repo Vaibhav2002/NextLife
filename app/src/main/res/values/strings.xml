@@ -8,4 +8,8 @@
     <string name="password">Password</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="log_in">Log in</string>
+
+    <string name="onboarding1">See all nearby blood requirements\non one single click </string>
+    <string name="onboarding2">Donate your blood and give\nsomeone a new life</string>
+    <string name="onboarding3">Help others who are in need and\nmake this world more helpful</string>
 </resources>

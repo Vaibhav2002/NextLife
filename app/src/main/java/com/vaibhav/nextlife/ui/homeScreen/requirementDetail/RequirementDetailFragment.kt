@@ -1,5 +1,7 @@
 package com.vaibhav.nextlife.ui.homeScreen.requirementDetail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -28,17 +30,29 @@ class RequirementDetailFragment : Fragment(R.layout.fragment_requirement_detail)
         post = args.post
         Timber.d("${post.lat} ${post.long}")
         binding.mapView.getMapAsync(this)
+        binding.apply {
+            titleText.text = post.title
+            descriptionText.text = post.description
+            nameText.text = "Posted by ${post.username}"
+            addressText.text = post.address
+            callfab.isExtended = true
+            callfab.text = post.phoneNumber
+        }
+        binding.callfab.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:+91${post.phoneNumber}")
+            startActivity(intent)
+        }
     }
 
     override fun onMapReady(p0: GoogleMap?) {
+        map = p0
         val latLng = LatLng(post.lat, post.long)
         Timber.d(latLng.toString())
         Timber.d(p0.toString())
-        p0?.let {
-            it.setMinZoomPreference(10F)
+        map?.let {
             it.addMarker(MarkerOptions().position(latLng))
             it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
-            binding.mapView.onResume()
         }
     }
 

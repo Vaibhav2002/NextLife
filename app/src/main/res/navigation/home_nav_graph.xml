@@ -17,12 +17,19 @@
         <action
             android:id="@+id/action_feedFragment_to_requirementDetailFragment"
             app:destination="@id/requirementDetailFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
         android:name="com.vaibhav.nextlife.ui.homeScreen.postSreen.PostFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        tools:layout="@layout/fragment_post">
+        <action
+            android:id="@+id/action_postFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.vaibhav.nextlife.ui.homeScreen.profileScreen.ProfileFragment"

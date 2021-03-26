@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NextLife">
-        <activity android:name=".ui.auth.AuthorizationActivity"></activity>
+        <activity android:name=".ui.onBoarding.OnBoardingActivity"></activity>
+        <activity android:name=".ui.auth.AuthorizationActivity" />
         <activity android:name=".ui.splashScreen.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +29,5 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
     </application>
-
 
 </manifest>

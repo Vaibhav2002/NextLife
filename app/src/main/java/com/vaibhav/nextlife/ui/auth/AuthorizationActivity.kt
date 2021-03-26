@@ -19,4 +19,6 @@ class AuthorizationActivity : AppCompatActivity() {
         setContentView(binding.root)
         navController = findNavController(R.id.fragment)
     }
+
+
 }
