@@ -17,7 +17,7 @@ class BloodGroupAdapter(
 ) :
     ListAdapter<BloodGroupModel, BloodGroupAdapter.viewHolder>(DiffCall()) {
 
-    private var posLastClicked = 0;
+    private var posLastClicked = Integer.MIN_VALUE;
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
         val binding = CategoryItemBinding
@@ -60,7 +60,10 @@ class BloodGroupAdapter(
                         )
                     )
                 }
-                posLastClicked = adapterPosition
+                posLastClicked = if (posLastClicked == adapterPosition)
+                    Integer.MIN_VALUE
+                else
+                    adapterPosition
                 Timber.d(newList.toString())
                 submitList(newList)
                 onCLickListener(newList[adapterPosition])
