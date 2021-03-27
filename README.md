@@ -6,7 +6,7 @@
 
 ***You can Install and test latest NextLife app from below 👇***
 
-[![Foodles](https://img.shields.io/badge/NextLife✅-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/Vaibhav2002/NextLife/blob/master/app/release/app-release.apk)
+[![Foodles](https://img.shields.io/badge/NextLife✅-APK-red.svg?style=for-the-badge&logo=android)](https://github.com/Vaibhav2002/NextLife/blob/master/app/release/nextLife.apk)
 
 ## Setup
 Clone the repository on your machine. Open the project on your IDE and connect it to firebase , enable email based authentication , enable firestore and also connect [Google maps SDK](https://developers.google.com/maps/documentation/android-sdk/start) and then everything will be setup
