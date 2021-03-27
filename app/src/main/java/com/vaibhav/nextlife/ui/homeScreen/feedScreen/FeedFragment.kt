@@ -69,7 +69,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
                     if (it.data.isNullOrEmpty())
                         Toast.makeText(
                             requireContext(),
-                            "No requirements found in your state",
+                            "No requirements found",
                             Toast.LENGTH_SHORT
                         ).show()
                 }
@@ -102,7 +102,6 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
 
         when (item.itemId) {
             R.id.logout -> {
-                sharedViewModel.logout()
                 requireActivity().startActivity(
                     Intent(
                         requireContext(),
