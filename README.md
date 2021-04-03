@@ -2,7 +2,7 @@
 
 # **NextLife** 
 
-**NextLife** is a blood donation app in which users can see all people who need blood in their city and can help them by donation their blood for a good cause. This app is made for [IGNITE 3.0 hackathon](https://nmignite.tech) .This app demonstrates use of *Modern Android development* tools.
+**NextLife** is a blood donation app in which users can see all people who need blood in their city and can help them by donation their blood for a good cause. This app is made for [IGNITE 3.0 hackathon](https://nmignite.tech) and won the **Best hack for the Individual Track**. This app demonstrates use of *Modern Android development* tools.
 
 ***You can Install and test latest NextLife app from below 👇***
 
